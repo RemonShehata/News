@@ -9,8 +9,8 @@ import com.example.newsapp.data.room.UserDao
 
 object NewsManager {
 
-    lateinit var database: NewsDatabase
-    lateinit var userDao: UserDao
+    private lateinit var database: NewsDatabase
+    private lateinit var userDao: UserDao
     lateinit var userRepo: UserRepository
 
     fun initialize(
