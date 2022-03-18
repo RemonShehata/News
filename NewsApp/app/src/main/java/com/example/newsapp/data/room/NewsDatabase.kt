@@ -16,14 +16,18 @@ abstract class NewsDatabase : RoomDatabase() {
 }
 
 object NewsDatabaseFactory {
+    @Volatile
     private var instance: NewsDatabase? = null
 
     fun buildNewsDatabaseProvider(context: Context): NewsDatabase {
-        return if (instance == null) {
-            Room.databaseBuilder(
-                context.applicationContext,
-                NewsDatabase::class.java, "news_database"
-            ).build()
-        } else instance!!
+        return instance ?: kotlin.run {
+            synchronized(this) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    NewsDatabase::class.java, "news_database"
+                ).build()
+                instance!!
+            }
+        }
     }
 }
