@@ -1,7 +1,8 @@
 package com.example.newsapp.network
 
 import com.example.newsapp.BuildConfig
-import com.example.newsapp.utils.Keys
+import com.example.newsapp.utils.NEWS_API_BASE_URL
+import com.example.newsapp.utils.NEWS_API_KEY
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 interface NewsApi {
 
-    @Headers("X-Api-Key: ${Keys.NEWS_API_KEY}")
+    @Headers("X-Api-Key: $NEWS_API_KEY")
     @GET("everything&q=everything")
     suspend fun getEverything(): News
 
@@ -22,13 +23,12 @@ interface NewsApi {
     companion object {
         fun create(): NewsApi {
             val retrofit = Retrofit.Builder()
-                .baseUrl(Keys.NEWS_API_BASE_URL)
+                .baseUrl(NEWS_API_BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi).withNullSerialization())
                 .client(createOkHttpClient())
                 .build()
             return retrofit.create(NewsApi::class.java)
         }
-
 
         private fun createOkHttpClient(): OkHttpClient {
             val builder = OkHttpClient.Builder()
