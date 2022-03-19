@@ -1,8 +1,8 @@
 package com.example.newsapp.data.repos
 
-import com.example.newsapp.data.network.News
+import com.example.newsapp.data.entities.NewsEntity
 
 interface NewsRepo {
 
-    suspend fun getNews(): News
+    suspend fun getNews(): NewsEntity
 }
