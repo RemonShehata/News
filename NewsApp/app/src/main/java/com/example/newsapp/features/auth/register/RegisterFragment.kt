@@ -54,6 +54,13 @@ class RegisterFragment : Fragment() {
         ) {
             Toast.makeText(requireContext(), "please fill all the fields!", Toast.LENGTH_SHORT)
                 .show()
+        } else if (!viewModel.isValidEmail(email)) {
+            Toast.makeText(requireContext(), "please Enter a valid email!", Toast.LENGTH_SHORT)
+                .show()
+        } else if (!viewModel.isValidPhoneNumber(phoneNumber)) {
+            Toast.makeText(requireContext(), "please Enter a valid phone number!", Toast.LENGTH_SHORT)
+                .show()
+
         } else {
             val user = User(
                 email = email,

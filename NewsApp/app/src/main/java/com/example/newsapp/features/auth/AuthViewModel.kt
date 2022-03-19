@@ -1,8 +1,10 @@
 package com.example.newsapp.features.auth
 
+import android.util.Patterns
 import androidx.lifecycle.*
 import com.example.newsapp.data.entities.User
 import com.example.newsapp.data.repos.UserRepository
+import com.example.newsapp.utils.PHONE_REGEX
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,9 +21,9 @@ class AuthViewModel(
     val loginResultLiveData: LiveData<Boolean>
         get() = loginResultMutableLiveData
 
-    private val changePasswordMutableLiveData = MutableLiveData<Boolean>()
-    val changePasswordLiveData: LiveData<Boolean>
-        get() = changePasswordMutableLiveData
+    private val changePasswordResultMutableLiveData = MutableLiveData<Boolean>()
+    val changePasswordResultLiveData: LiveData<Boolean>
+        get() = changePasswordResultMutableLiveData
 
     fun login(email: String, password: String) = viewModelScope.launch(ioDispatcher) {
         loginResultMutableLiveData.postValue(userRepository.login(email, password))
@@ -32,8 +34,18 @@ class AuthViewModel(
     }
 
     fun changePassword(email: String, password: String) = viewModelScope.launch(ioDispatcher) {
-        changePasswordMutableLiveData.postValue(userRepository.changePassword(email, password))
+        changePasswordResultMutableLiveData.postValue(userRepository.changePassword(email, password))
     }
+
+    fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    fun isValidPhoneNumber(phone: String): Boolean {
+        return phone.matches(Regex(PHONE_REGEX))
+    }
+
+
 }
 
 class MyViewModelFactory(
