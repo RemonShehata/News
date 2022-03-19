@@ -8,8 +8,10 @@ import com.example.newsapp.data.entities.User
 
 @Dao
 interface UserDao {
-
-    //TODO test how the abort works.
+    /**
+     * According to this [link](https://commonsware.com/AndroidArch/pages/chap-roomconflict-001)
+     * The conflict will happen when two entities have the same primary keys.
+     */
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertUser(user: User): Long
 

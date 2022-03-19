@@ -1,4 +1,4 @@
-package com.example.newsapp.network
+package com.example.newsapp.data.network
 
 import com.example.newsapp.BuildConfig
 import com.example.newsapp.utils.NEWS_API_BASE_URL
