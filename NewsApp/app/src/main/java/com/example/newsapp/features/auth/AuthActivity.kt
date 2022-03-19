@@ -1,11 +1,12 @@
-package com.example.newsapp
+package com.example.newsapp.features.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.newsapp.R
 
-class MainActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_auth)
     }
 }

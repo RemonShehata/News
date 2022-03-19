@@ -9,7 +9,6 @@ import com.example.newsapp.data.entities.User
 @Dao
 interface UserDao {
 
-    //TODO test how the abort works.
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertUser(user: User): Long
 
