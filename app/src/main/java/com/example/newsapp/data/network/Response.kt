@@ -29,4 +29,5 @@ data class Source(
 
 sealed class FailureReason {
     object NoInternet : FailureReason()
+    class UnknownError(val error: String) : FailureReason()
 }

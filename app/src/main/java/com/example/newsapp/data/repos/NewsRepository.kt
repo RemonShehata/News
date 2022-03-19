@@ -6,14 +6,21 @@ import com.example.newsapp.data.network.Response
 import com.example.newsapp.data.room.NewsDao
 import com.example.newsapp.utils.convertToArticlesList
 import com.example.newsapp.utils.convertToEntity
+import java.net.UnknownHostException
 
 class NewsRepository(private val api: NewsApi, private val newsDao: NewsDao) : NewsRepo {
 
     override suspend fun updateNewsTopHeadlines(): Response {
         val news = try {
             api.getTopHeadlines()
-        } catch (e: Exception) {
+        } catch (unknownHost: UnknownHostException) {
             return Response.Failure(FailureReason.NoInternet)
+        } catch (e: Exception) {
+            return Response.Failure(
+                FailureReason.UnknownError(
+                    e.localizedMessage ?: "no message in the exception"
+                )
+            )
         }
 
         val newsEntity = news.convertToEntity()
