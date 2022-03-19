@@ -9,9 +9,7 @@ sealed class Response {
 data class News(
     val status: String,
     val totalResults: Int,
-    val articles: List<Article>,
-    val code: String?,
-    val message: String?
+    val articles: List<Article>?,
 )
 
 data class Article(
