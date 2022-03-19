@@ -3,10 +3,10 @@ package com.example.newsapp.features.news
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapp.data.network.News
+import com.example.newsapp.data.entities.NewsEntity
 import com.example.newsapp.databinding.NewsItemLayoutBinding
 
-class NewsListAdapter(private val newsList: News): RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>()  {
+class NewsListAdapter(private var newsList: NewsEntity): RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -24,6 +24,12 @@ class NewsListAdapter(private val newsList: News): RecyclerView.Adapter<NewsList
     }
 
     override fun getItemCount(): Int = newsList.articles.size
+
+
+    fun setData(newData: NewsEntity) {
+        newsList = newData
+        notifyDataSetChanged()
+    }
 
 
     inner class NewsViewHolder(val binding: NewsItemLayoutBinding) :
