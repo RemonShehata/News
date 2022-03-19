@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 interface NewsApi {
 
     @Headers("X-Api-Key: $NEWS_API_KEY")
-    @GET("everything&q=everything")
+    @GET("everything?q=everything")
     suspend fun getEverything(): News
 
 
