@@ -3,9 +3,8 @@ package com.example.newsapp.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
-import com.squareup.moshi.Moshi
+import com.example.newsapp.di.NewsManager
 import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 @Entity
 data class NewsEntity(
@@ -26,22 +25,16 @@ data class ArticleEntity(
 )
 
 class NewsConverter {
+
     companion object {
-
-        private val moshi: Moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
         private val ArticlesType =
             Types.newParameterizedType(List::class.java, ArticleEntity::class.java)
-        private val articlesAdapter = moshi.adapter<List<ArticleEntity>>(ArticlesType)
-
+        private val articlesAdapter = NewsManager.moshi.adapter<List<ArticleEntity>>(ArticlesType)
 
         @TypeConverter
         @JvmStatic
-        fun articlesToString(articles: List<ArticleEntity>): String? =
+        fun articlesToString(articles: List<ArticleEntity>): String =
             articlesAdapter.toJson(articles)
-
 
         @TypeConverter
         @JvmStatic
