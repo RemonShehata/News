@@ -10,13 +10,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface NewsApi {
 
     @Headers("X-Api-Key: $NEWS_API_KEY")
     @GET("top-headlines?country=us")
-    suspend fun getEverything(): News
+    suspend fun getTopHeadlines(): News
+
+    @Headers("X-Api-Key: $NEWS_API_KEY")
+    @GET("top-headlines?country=us")
+    suspend fun getEverything(@Query("q") Keywords: String): News
 
 
     companion object {
