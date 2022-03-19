@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_news_list" />
     <fragment
         android:id="@+id/newsDetailsFragment"
-        android:name="com.example.newsapp.features.news.NewsDetailsFragment"
+        android:name="com.example.newsapp.features.details.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" />
 </navigation>

@@ -13,11 +13,5 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
-        lifecycleScope.launch(Dispatchers.IO){
-            val api = NewsApi.create()
-            val news = api.getEverything()
-            Log.d("Remon", "onCreate: $news")
-        }
     }
 }
