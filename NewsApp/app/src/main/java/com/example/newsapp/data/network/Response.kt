@@ -1,9 +1,9 @@
 package com.example.newsapp.data.network
 
 sealed class Response {
-    object Loading: Response()
-    data class Success(val data: News) : Response()
-    data class Failure(val reason: FailureReason)
+    object Loading : Response()
+    data class Success(val data: List<Article>) : Response()
+    data class Failure(val reason: FailureReason) : Response()
 }
 
 data class News(

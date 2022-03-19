@@ -1,7 +1,7 @@
 package com.example.newsapp.features.news
 
 import androidx.lifecycle.*
-import com.example.newsapp.data.entities.NewsEntity
+import com.example.newsapp.data.network.Response
 import com.example.newsapp.data.repos.NewsRepo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -12,15 +12,24 @@ class NewsListViewModel(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    private val newsDataMutableLiveData = MutableLiveData<NewsEntity>()
+    private val newsDataMutableLiveData = MutableLiveData<Response>()
 
-    val newsLiveData: LiveData<NewsEntity>
+    val newsLiveData: LiveData<Response>
         get() = newsDataMutableLiveData
 
     fun loadNewsData() {
+        newsDataMutableLiveData.value = Response.Loading
         viewModelScope.launch(dispatcher) {
-            val news = newsRepo.getNews()
-            newsDataMutableLiveData.postValue(news)
+            val result = newsRepo.getTopHeadlines()
+            newsDataMutableLiveData.postValue(result)
+        }
+    }
+
+    fun updateNewsDataFromApi() {
+        newsDataMutableLiveData.value = Response.Loading
+        viewModelScope.launch(dispatcher) {
+            val result = newsRepo.updateNewsTopHeadlines()
+            newsDataMutableLiveData.postValue(result)
         }
     }
 }

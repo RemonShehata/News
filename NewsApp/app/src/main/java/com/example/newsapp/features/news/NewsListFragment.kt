@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.data.entities.NewsEntity
 import com.example.newsapp.data.network.News
+import com.example.newsapp.data.network.Response
 import com.example.newsapp.databinding.FragmentNewsListBinding
 import com.example.newsapp.di.NewsManager
 
@@ -33,7 +35,7 @@ class NewsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newsListAdapter = NewsListAdapter(NewsEntity(articles =  listOf()))
+        val newsListAdapter = NewsListAdapter()
         binding.newsListRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = newsListAdapter
@@ -41,8 +43,12 @@ class NewsListFragment : Fragment() {
 
         viewModel.loadNewsData()
 
-        viewModel.newsLiveData.observe(viewLifecycleOwner){
-            newsListAdapter.setData(it)
+        viewModel.newsLiveData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Response.Failure -> Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Response.Loading -> Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                is Response.Success -> newsListAdapter.submitList(response.data)
+            }
         }
     }
 }
