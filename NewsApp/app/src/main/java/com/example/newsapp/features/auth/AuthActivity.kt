@@ -1,8 +1,13 @@
 package com.example.newsapp.features.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.newsapp.R
+import com.example.newsapp.data.network.NewsApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
