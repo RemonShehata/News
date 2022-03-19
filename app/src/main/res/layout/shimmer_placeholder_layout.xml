@@ -23,13 +23,13 @@
             android:layout_height="40dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/placeholder_image_svg" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
             android:ellipsize="end"
             android:maxLines="2"
@@ -41,13 +41,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/author"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
             android:ellipsize="end"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/favorite"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="author" />
@@ -56,10 +58,9 @@
             android:id="@+id/favorite"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image"
-            app:srcCompat="@drawable/favorite_border" />
+            app:srcCompat="@drawable/favorite_filled" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
