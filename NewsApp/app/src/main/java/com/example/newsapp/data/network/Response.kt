@@ -1,4 +1,4 @@
-package com.example.newsapp.network
+package com.example.newsapp.data.network
 
 sealed class Response {
     object Loading: Response()

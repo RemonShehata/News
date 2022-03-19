@@ -15,4 +15,9 @@
         android:name="com.example.newsapp.features.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <activity
+        android:id="@+id/newsActivity"
+        android:name="com.example.newsapp.features.news.NewsActivity"
+        android:label="activity_news"
+        tools:layout="@layout/activity_news" />
 </navigation>
