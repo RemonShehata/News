@@ -14,4 +14,7 @@ interface NewsDao {
 
     @Query("SELECT * FROM NewsEntity")
     suspend fun getNews(): NewsEntity
+
+    @Query("SELECT COUNT(id) FROM NewsEntity")
+    suspend fun getNewsCount() : Long
 }
