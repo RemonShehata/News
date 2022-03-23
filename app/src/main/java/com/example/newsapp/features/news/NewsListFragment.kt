@@ -45,9 +45,27 @@ class NewsListFragment : Fragment() {
 
         viewModel.newsLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Failure -> Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                Response.Loading -> Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-                is Response.Success -> newsListAdapter.submitList(response.data)
+                is Response.Failure -> {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                Response.Loading -> {
+                    with(binding) {
+                        binding.shimmerFrameLayout.startShimmer()
+                        shimmerFrameLayout.visibility = View.VISIBLE
+                        newsListRecycler.visibility = View.GONE
+                    }
+                }
+
+                is Response.Success -> {
+                    with(binding) {
+                        binding.shimmerFrameLayout.stopShimmer()
+                        shimmerFrameLayout.visibility = View.GONE
+                        newsListRecycler.visibility = View.VISIBLE
+                    }
+                    newsListAdapter.submitList(response.data)
+                }
             }
         }
     }
