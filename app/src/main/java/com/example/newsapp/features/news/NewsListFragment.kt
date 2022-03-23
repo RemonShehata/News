@@ -1,6 +1,7 @@
 package com.example.newsapp.features.news
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.data.entities.NewsEntity
+import com.example.newsapp.data.network.FailureReason
 import com.example.newsapp.data.network.News
 import com.example.newsapp.data.network.Response
 import com.example.newsapp.databinding.FragmentNewsListBinding
 import com.example.newsapp.di.NewsManager
+import com.example.newsapp.utils.showMessage
 
 class NewsListFragment : Fragment() {
 
@@ -46,12 +49,23 @@ class NewsListFragment : Fragment() {
         viewModel.newsLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Failure -> {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT)
-                        .show()
+                    stopShimmer()
+
+                    when (response.reason) {
+                        FailureReason.NoInternet -> {
+                            showMessage("You're currently offline!")
+                            binding.offlineImage.visibility = View.VISIBLE
+                        }
+                        is FailureReason.UnknownError -> {
+                            showMessage("Oh no! an error occurred.")
+                            Log.e("NewsListFragment", "error: ${response.reason.error}")
+                        }
+                    }
                 }
 
                 Response.Loading -> {
                     with(binding) {
+                        binding.offlineImage.visibility = View.GONE
                         binding.shimmerFrameLayout.startShimmer()
                         shimmerFrameLayout.visibility = View.VISIBLE
                         newsListRecycler.visibility = View.GONE
@@ -59,14 +73,19 @@ class NewsListFragment : Fragment() {
                 }
 
                 is Response.Success -> {
-                    with(binding) {
-                        binding.shimmerFrameLayout.stopShimmer()
-                        shimmerFrameLayout.visibility = View.GONE
-                        newsListRecycler.visibility = View.VISIBLE
-                    }
+                    binding.offlineImage.visibility = View.GONE
+                    stopShimmer()
                     newsListAdapter.submitList(response.data)
                 }
             }
+        }
+    }
+
+    private fun stopShimmer() {
+        with(binding) {
+            binding.shimmerFrameLayout.stopShimmer()
+            shimmerFrameLayout.visibility = View.GONE
+            newsListRecycler.visibility = View.VISIBLE
         }
     }
 }
