@@ -7,6 +7,6 @@ class NewsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        NewsManager.initialize(context = applicationContext)haha2
+        NewsManager.initialize(context = applicationContext)
     }
 }
