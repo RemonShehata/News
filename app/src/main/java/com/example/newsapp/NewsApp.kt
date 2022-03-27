@@ -8,6 +8,6 @@ class NewsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        NewsManager.initialize(context = applicationContext)
+        NewsManager.initialize(context = applicationContext)test2
     }
 }
