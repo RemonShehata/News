@@ -9,6 +9,5 @@ class NewsApp : Application() {
     override fun onCreate() {
         super.onCreate()
         NewsManager.initialize(context = applicationContext)
-        Log.d("TAG", "onCreate: ")
     }
 }
