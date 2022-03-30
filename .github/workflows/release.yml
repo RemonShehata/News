@@ -20,7 +20,7 @@ jobs:
       - name: Upload Debug APK to Github
         uses: actions/upload-artifact@v2.2.0
         with:
-          name: Sample App Debug APK
+          name: NewsApp
           path: app/build/outputs/apk/debug/app*.apk
   build_release:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
       - name: Build Project
         run: ./gradlew assemble
 
-        
+
   unit_test_release:
     runs-on: ubuntu-latest
     steps:
