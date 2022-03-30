@@ -17,6 +17,7 @@ import com.example.newsapp.features.auth.MyViewModelFactory
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
+    // test release branch
 
     private val viewModel: AuthViewModel by viewModels {
         MyViewModelFactory(NewsManager.userRepo)
