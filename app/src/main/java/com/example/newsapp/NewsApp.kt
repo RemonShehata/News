@@ -9,5 +9,7 @@ class NewsApp : Application() {
     override fun onCreate() {
         super.onCreate()
         NewsManager.initialize(context = applicationContext)
+
+        // just testing release
     }
 }
