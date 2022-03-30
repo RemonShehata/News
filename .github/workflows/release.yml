@@ -6,7 +6,7 @@ on:
       - release/*
 
 jobs:
-  build_release:
+  apk_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,9 +22,9 @@ jobs:
         with:
           name: Sample App Debug APK
           path: app/build/outputs/apk/debug/app*.apk
- build:
-  runs-on: ubuntu-latest
-  steps:
+  build_release:
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v2
     - name: Set UP JDK 11
       uses: actions/setup-java@v2
@@ -35,7 +35,7 @@ jobs:
       run: ./gradlew assemble
 
 
- unit_test:
+ unit_test_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
