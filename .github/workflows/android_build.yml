@@ -33,4 +33,5 @@ jobs:
             java-version: '11'
             distribution: 'temurin'
         - name: Run Tests
-          run: ./gradlew test
+          run: ./gradlew testDebugUnitTest --stacktrace #this runs unit tests only
+          #run: ./gradlew test # this runs unit tests + ui tests
