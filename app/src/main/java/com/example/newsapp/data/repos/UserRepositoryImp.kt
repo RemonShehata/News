@@ -6,6 +6,7 @@ import com.example.newsapp.data.room.UserDao
 
 class UserRepositoryImp(private val userDao: UserDao) : UserRepository {
 
+    @Suppress("SwallowedException")
     override suspend fun registerUser(user: User): Boolean {
         return try {
             userDao.insertUser(user)

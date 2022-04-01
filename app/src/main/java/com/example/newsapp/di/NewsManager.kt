@@ -34,7 +34,7 @@ object NewsManager {
         database = NewsDatabaseFactory.buildNewsDatabaseProvider(context)
         userDao = database.userDao()
         userRepo = UserRepositoryImp(userDao)
-        newsDao = database.NewsDao()
+        newsDao = database.newsDao()
         newsApi = NewsApi.create()
         newsRepo = NewsRepository(newsApi, newsDao)
     }
