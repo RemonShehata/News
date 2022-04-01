@@ -49,15 +49,12 @@ jobs:
             path: unit-test.zip
 
         - name: Post Code Coverage Summary
-          uses: romeovs/lcov-reporter-action@v0.2.16
+          id: jacoco
+          uses: madrapps/jacoco-report@v1.2
           with:
-            lcov-file: ./coverage/lcov.info
-#          run: |
-#           ./gradlew app:postPullRequestComment \
-#                      -PsnapshotBefore="origin/${{ github.event.pull_request.base.ref }}" \
-#                      -PsnapshotAfter="origin/${{ github.event.pull_request.head.ref }}" \
-#                      -PgithubToken="${{ secrets.GITHUB_TOKEN }}" \
-#                      -PissueCommentsUrl=${{ github.event.pull_request.comments_url }} --stacktrace
+            path: ${{ github.workspace }}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+            token: ${{ secrets.GITHUB_TOKEN }}
+
 
   static_code_anaylsis:
       runs-on: ubuntu-latest
