@@ -32,6 +32,8 @@ android {
                 artifactType="APK"
                 releaseNotesFile="app/release-notes.txt"
                 serviceCredentialsFile="app/firebase_distribution.json"
+                groups = "devs"
+                // testers="hima.abousalem@gmail.com"
             }
         }
     }
