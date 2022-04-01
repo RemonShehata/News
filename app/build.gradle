@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
@@ -22,6 +24,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            firebaseAppDistribution {
+                appId= "1:947232603285:android:d3756e8ef82b5284f3af9c"
+                artifactType="APK"
+                releaseNotesFile="app/release-notes.txt"
+                serviceCredentialsFile="app/firebase_distribution.json"
+            }
         }
     }
     compileOptions {
@@ -83,6 +94,9 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
 
 
     testImplementation 'junit:junit:4.13.2'
