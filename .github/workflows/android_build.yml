@@ -1,9 +1,10 @@
 name: Android Build
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request
+  #do that for all pull requests no matter what is the branch
+    #branches:
+    #  - main
 
 concurrency:
   group: ${{ github.ref }}
