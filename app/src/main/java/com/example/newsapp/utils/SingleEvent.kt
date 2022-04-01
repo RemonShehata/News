@@ -2,7 +2,6 @@ package com.example.newsapp.utils
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
  * https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150

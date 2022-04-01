@@ -40,7 +40,6 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>() {
                 .placeholder(R.drawable.placeholder_image_svg)
                 .into(holder.binding.image)
         }
-
     }
 
     override fun getItemCount(): Int = differ.currentList.size
@@ -49,7 +48,6 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>() {
         super.onAttachedToRecyclerView(recyclerView)
         context = recyclerView.context
     }
-
 
     fun submitList(articleList: List<Article>) {
         differ.submitList(articleList)

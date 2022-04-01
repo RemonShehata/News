@@ -16,5 +16,5 @@ interface NewsDao {
     suspend fun getNews(): NewsEntity
 
     @Query("SELECT COUNT(id) FROM NewsEntity")
-    suspend fun getNewsCount() : Long
+    suspend fun getNewsCount(): Long
 }
