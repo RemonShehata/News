@@ -39,23 +39,14 @@ jobs:
 
         - name: Generate Jacoco Test Reports
           run: |
-            ./gradlew app:jacocoTestReport -Pcode_coverage=true --stacktrace
-            # Don't combine these because we don't want them to run in parallel
-            #./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
-            tar -cvf unit-test.zip app/build/reports/tests/
-            tar -cvf jacoco.zip app/build/jacoco/
+            ./gradlew jacocoTestReport
+            tar -cvf unit-test.zip app/build/jacocoHtml/
 
         - name: Upload Unit Test Report
           uses: actions/upload-artifact@v2
           with:
             name: unit-test-reports
             path: unit-test.zip
-
-        - name: Upload Coverage Report
-          uses: actions/upload-artifact@v2
-          with:
-            name: coverage-reports
-            path: jacoco.zip
 
         - name: Post Code Coverage Summary
           uses: romeovs/lcov-reporter-action@v0.2.16
