@@ -41,8 +41,8 @@ jobs:
             ./gradlew app:jacocoTestReport -Pcode_coverage=true --stacktrace
             # Don't combine these because we don't want them to run in parallel
             #./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
-            tar -cvf unit-test.zip /build/reports/tests/
-            tar -cvf jacoco.zip /build/jacoco/
+            tar -cvf unit-test.zip app/build/reports/tests/
+            tar -cvf jacoco.zip app/build/jacoco/
 
         - name: Upload Unit Test Report
           uses: actions/upload-artifact@v2
