@@ -35,12 +35,12 @@ jobs:
         - name: Run Tests
           run: ./gradlew testDebugUnitTest --stacktrace #this runs unit tests only
           #run: ./gradlew test # this runs unit tests + ui tests
-          
+
         - name: Generate Jacoco Test Reports
           run: |
-            ./gradlew jacocoTestDebugUnitTestReport -Pcode_coverage=true --stacktrace
+            ./gradlew jacocoTestReport -Pcode_coverage=true --stacktrace
             # Don't combine these because we don't want them to run in parallel
-            ./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
+            #./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
             tar -cvf unit-test.zip /build/reports/tests/
             tar -cvf jacoco.zip /build/jacoco/
 
