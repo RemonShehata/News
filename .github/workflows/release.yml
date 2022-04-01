@@ -22,7 +22,7 @@ jobs:
         with:
           name: NewsApp
           path: app/build/outputs/apk/debug/app*.apk
-  build_release:
+  build_and_distribute_apk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +33,8 @@ jobs:
           distribution: 'temurin'
       - name: Build Project
         run: ./gradlew assemble
-
+      - name: upload to firebase distribution
+        run: ./gradlew appDistributionUploadDebug
 
   unit_test_release:
     runs-on: ubuntu-latest
