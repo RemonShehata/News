@@ -6,7 +6,9 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.appdistribution'
     id 'io.gitlab.arturbosch.detekt'
+    id 'jacoco'
 }
+apply from: '../jacoco.gradle'
 
 android {
     compileSdk 32
