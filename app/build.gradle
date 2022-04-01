@@ -28,9 +28,10 @@ android {
 
         debug {
             firebaseAppDistribution {
+                appId= "1:947232603285:android:d3756e8ef82b5284f3af9c"
                 artifactType="APK"
-                releaseNotesFile="${projectDir}/release-notes.txt"
-                // testers="hima.abousalem@gmail.com"
+                releaseNotesFile="app/release-notes.txt"
+                serviceCredentialsFile="app/firebase_distribution.json"
             }
         }
     }
