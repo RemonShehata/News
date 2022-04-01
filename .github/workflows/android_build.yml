@@ -35,6 +35,34 @@ jobs:
         - name: Run Tests
           run: ./gradlew testDebugUnitTest --stacktrace #this runs unit tests only
           #run: ./gradlew test # this runs unit tests + ui tests
+          
+        - name: Generate Jacoco Test Reports
+          run: |
+            ./gradlew jacocoTestDebugUnitTestReport -Pcode_coverage=true --stacktrace
+            # Don't combine these because we don't want them to run in parallel
+            ./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
+            tar -cvf unit-test.zip /build/reports/tests/
+            tar -cvf jacoco.zip /build/jacoco/
+
+        - name: Upload Unit Test Report
+          uses: actions/upload-artifact@v2
+          with:
+            name: unit-test-reports
+            path: unit-test.zip
+
+        - name: Upload Coverage Report
+          uses: actions/upload-artifact@v2
+          with:
+            name: coverage-reports
+            path: jacoco.zip
+
+#       - name: Post Code Coverage Summary
+#         run: |
+#           ./gradlew postPullRequestComment \
+#           -PsnapshotBefore="origin/${{ github.event.pull_request.base.ref }}" \
+#           -PsnapshotAfter="origin/${{ github.event.pull_request.head.ref }}" \
+#           -PgithubToken="${{ secrets.GITHUB_TOKEN }}" \
+#           -PissueCommentsUrl=${{ github.event.pull_request.comments_url }} --stacktrace
 
   static_code_anaylsis:
       runs-on: ubuntu-latest
