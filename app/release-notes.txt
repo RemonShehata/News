@@ -1,1 +1,2 @@
 This is fist test release
+update the version name to 1.1
