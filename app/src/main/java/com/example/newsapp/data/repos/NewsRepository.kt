@@ -10,6 +10,7 @@ import java.net.UnknownHostException
 
 class NewsRepository(private val api: NewsApi, private val newsDao: NewsDao) : NewsRepo {
 
+    @Suppress("ReturnCount", "SwallowedException", "TooGenericExceptionCaught")
     override suspend fun updateNewsTopHeadlines(): Response {
         val news = try {
             api.getTopHeadlines()

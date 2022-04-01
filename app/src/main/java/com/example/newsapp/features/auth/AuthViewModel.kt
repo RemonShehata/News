@@ -1,3 +1,5 @@
+@file: Suppress("WildcardImport", "NoWildcardImports")
+
 package com.example.newsapp.features.auth
 
 import android.util.Patterns
@@ -34,7 +36,12 @@ class AuthViewModel(
     }
 
     fun changePassword(email: String, password: String) = viewModelScope.launch(ioDispatcher) {
-        changePasswordResultMutableLiveData.postValue(userRepository.changePassword(email, password))
+        changePasswordResultMutableLiveData.postValue(
+            userRepository.changePassword(
+                email,
+                password
+            )
+        )
     }
 
     fun isValidEmail(email: String): Boolean {
@@ -44,10 +51,9 @@ class AuthViewModel(
     fun isValidPhoneNumber(phone: String): Boolean {
         return phone.matches(Regex(PHONE_REGEX))
     }
-
-
 }
 
+@Suppress("UNCHECKED_CAST")
 class MyViewModelFactory(
     private val userRepository: UserRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,

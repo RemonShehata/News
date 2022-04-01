@@ -24,22 +24,19 @@ data class ArticleEntity(
     val content: String?
 )
 
-class NewsConverter {
+object NewsConverter {
 
-    companion object {
-        private val ArticlesType =
-            Types.newParameterizedType(List::class.java, ArticleEntity::class.java)
-        private val articlesAdapter = NewsManager.moshi.adapter<List<ArticleEntity>>(ArticlesType)
+    private val ArticlesType =
+        Types.newParameterizedType(List::class.java, ArticleEntity::class.java)
+    private val articlesAdapter = NewsManager.moshi.adapter<List<ArticleEntity>>(ArticlesType)
 
-        @TypeConverter
-        @JvmStatic
-        fun articlesToString(articles: List<ArticleEntity>): String =
-            articlesAdapter.toJson(articles)
+    @TypeConverter
+    @JvmStatic
+    fun articlesToString(articles: List<ArticleEntity>): String =
+        articlesAdapter.toJson(articles)
 
-        @TypeConverter
-        @JvmStatic
-        fun stringToArticles(articles: String): List<ArticleEntity> =
-            articlesAdapter.fromJson(articles).orEmpty()
-    }
+    @TypeConverter
+    @JvmStatic
+    fun stringToArticles(articles: String): List<ArticleEntity> =
+        articlesAdapter.fromJson(articles).orEmpty()
 }
-
