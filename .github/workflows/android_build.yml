@@ -38,7 +38,7 @@ jobs:
 
         - name: Generate Jacoco Test Reports
           run: |
-            ./gradlew jacocoTestReport -Pcode_coverage=true --stacktrace
+            ./gradlew app:jacocoTestReport -Pcode_coverage=true --stacktrace
             # Don't combine these because we don't want them to run in parallel
             #./gradlew jacocoTestDebugUnitTestSummary -Pcode_coverage=true --stacktrace
             tar -cvf unit-test.zip /build/reports/tests/
