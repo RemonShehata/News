@@ -19,5 +19,5 @@ interface UserDao {
     suspend fun login(email: String, password: String): Boolean
 
     @Query("UPDATE user SET password=:password WHERE email = :email")
-    suspend fun updatePassword(email:String, password: String): Int
+    suspend fun updatePassword(email: String, password: String): Int
 }
