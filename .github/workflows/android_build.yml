@@ -56,13 +56,13 @@ jobs:
             name: coverage-reports
             path: jacoco.zip
 
-#       - name: Post Code Coverage Summary
-#         run: |
-#           ./gradlew postPullRequestComment \
-#           -PsnapshotBefore="origin/${{ github.event.pull_request.base.ref }}" \
-#           -PsnapshotAfter="origin/${{ github.event.pull_request.head.ref }}" \
-#           -PgithubToken="${{ secrets.GITHUB_TOKEN }}" \
-#           -PissueCommentsUrl=${{ github.event.pull_request.comments_url }} --stacktrace
+        - name: Post Code Coverage Summary
+          run: |
+           ./gradlew app:postPullRequestComment \
+                      -PsnapshotBefore="origin/${{ github.event.pull_request.base.ref }}" \
+                      -PsnapshotAfter="origin/${{ github.event.pull_request.head.ref }}" \
+                      -PgithubToken="${{ secrets.GITHUB_TOKEN }}" \
+                      -PissueCommentsUrl=${{ github.event.pull_request.comments_url }} --stacktrace
 
   static_code_anaylsis:
       runs-on: ubuntu-latest
