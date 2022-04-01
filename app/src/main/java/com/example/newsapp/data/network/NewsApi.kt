@@ -19,10 +19,10 @@ interface NewsApi {
     @GET("top-headlines?country=us")
     suspend fun getTopHeadlines(): News
 
+    @Suppress("FunctionParameterNaming")
     @Headers("X-Api-Key: $NEWS_API_KEY")
     @GET("top-headlines?country=us")
     suspend fun getEverything(@Query("q") Keywords: String): News
-
 
     companion object {
         fun create(): NewsApi {
@@ -36,6 +36,7 @@ interface NewsApi {
             return retrofit.create(NewsApi::class.java)
         }
 
+        @Suppress("MagicNumber")
         private fun createOkHttpClient(): OkHttpClient {
             val builder = OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)

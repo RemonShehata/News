@@ -17,14 +17,14 @@ import com.example.newsapp.features.auth.MyViewModelFactory
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
-    // test release branch
 
     private val viewModel: AuthViewModel by viewModels {
         MyViewModelFactory(NewsManager.userRepo)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
@@ -50,18 +50,19 @@ class RegisterFragment : Fragment() {
         val password = binding.passwordET.text.toString().trim()
         val userName = binding.userNameET.text.toString().trim()
         val phoneNumber = binding.phoneNumberET.text.toString().trim()
-        if (email.isEmpty() || password.isEmpty() ||
-            userName.isEmpty() || phoneNumber.isEmpty()
-        ) {
+        if (isValidData(email, password, userName, phoneNumber)) {
             Toast.makeText(requireContext(), "please fill all the fields!", Toast.LENGTH_SHORT)
                 .show()
         } else if (!viewModel.isValidEmail(email)) {
             Toast.makeText(requireContext(), "please Enter a valid email!", Toast.LENGTH_SHORT)
                 .show()
         } else if (!viewModel.isValidPhoneNumber(phoneNumber)) {
-            Toast.makeText(requireContext(), "please Enter a valid phone number!", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                requireContext(),
+                "please Enter a valid phone number!",
+                Toast.LENGTH_SHORT
+            )
                 .show()
-
         } else {
             val user = User(
                 email = email,
@@ -71,5 +72,14 @@ class RegisterFragment : Fragment() {
             )
             viewModel.register(user)
         }
+    }
+
+    private fun isValidData(
+        email: String,
+        password: String,
+        userName: String,
+        phoneNumber: String
+    ): Boolean {
+        return email.isEmpty() || password.isEmpty() || userName.isEmpty() || phoneNumber.isEmpty()
     }
 }

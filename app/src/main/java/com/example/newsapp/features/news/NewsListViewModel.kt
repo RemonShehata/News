@@ -1,3 +1,5 @@
+@file: Suppress("WildcardImport", "NoWildcardImports")
+
 package com.example.newsapp.features.news
 
 import androidx.lifecycle.*
@@ -34,6 +36,7 @@ class NewsListViewModel(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class MyViewModelFactory(
     private val newsRepo: NewsRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,

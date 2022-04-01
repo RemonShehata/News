@@ -20,7 +20,7 @@ import com.example.newsapp.data.entities.User
 )
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun NewsDao(): NewsDao
+    abstract fun newsDao(): NewsDao
 }
 
 object NewsDatabaseFactory {
