@@ -37,6 +37,16 @@ jobs:
         run: ./gradlew testDebugUnitTest --stacktrace #this runs unit tests only
         #run: ./gradlew test # this runs unit tests + ui tests
 
+
+      - name: Generate Jacoco Test Reports
+        run: ./gradlew jacocoTestReport
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.csv
+
   static_code_anaylsis:
     runs-on: ubuntu-latest
     steps:
