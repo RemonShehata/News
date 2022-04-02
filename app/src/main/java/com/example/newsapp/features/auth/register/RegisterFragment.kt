@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.newsapp.R
 import com.example.newsapp.data.entities.UserDto
 import com.example.newsapp.databinding.FragmentRegisterBinding
 import com.example.newsapp.di.NewsManager
@@ -39,20 +42,43 @@ class RegisterFragment : Fragment() {
             when (result) {
                 is RegisterResult.InvalidData -> {
                     when (result.error) {
-                        ErrorType.EmptyEmail -> TODO()
-                        ErrorType.EmptyName -> TODO()
-                        ErrorType.EmptyPassword -> TODO()
-                        ErrorType.EmptyPhoneNumber -> TODO()
-                        ErrorType.InvalidEmailFormat -> TODO()
-                        ErrorType.InvalidPasswordFormat -> TODO()
-                        ErrorType.InvalidPhoneNumberFormat -> TODO()
+                        ErrorType.EmptyEmail -> {
+                            binding.emailET.error = "Email can't be empty"
+                        }
+                        ErrorType.EmptyName -> {
+                            binding.userNameET.error = "Name can't be empty"
+                        }
+                        ErrorType.EmptyPassword -> {
+                            binding.passwordET.error =
+                                "Password can't be empty"
+                        }
+                        ErrorType.EmptyPhoneNumber -> {
+                            binding.phoneNumberET.error =
+                                "Phone number can't be empty"
+                        }
+                        ErrorType.InvalidEmailFormat -> {
+                            binding.emailET.error =
+                                "Invalid email address"
+                        }
+                        ErrorType.InvalidPasswordFormat -> {
+                            binding.passwordET.error = "password must be more than 6 chars"
+                        }
+                        ErrorType.InvalidPhoneNumberFormat -> {
+                            binding.phoneNumberET.error =
+                                "Invalid phone number"
+                        }
                     }
                 }
                 RegisterResult.RegisterError -> {
-                    TODO()
+                    Toast.makeText(
+                        requireContext(),
+                        "Email is already registered!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 RegisterResult.RegisterSuccessful -> {
-                    TODO()
+                    requireActivity().finish()
+                    findNavController().navigate(R.id.newsActivity)
                 }
             }
         }
