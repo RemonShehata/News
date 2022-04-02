@@ -22,27 +22,27 @@ class RegisterViewModel(
         get() = registrationResultMutableLiveData
 
     fun register(user: UserDto) {
-        if (user.email.isNullOrEmpty()) {
+        if (user.name.isEmpty()) {
+            registrationResultMutableLiveData.value =
+                RegisterResult.InvalidData(ErrorType.EmptyName)
+        } else if (user.email.isEmpty()) {
             registrationResultMutableLiveData.value =
                 RegisterResult.InvalidData(ErrorType.EmptyEmail)
         } else if (!user.email.isValidEmailFormat()) {
             registrationResultMutableLiveData.value =
                 RegisterResult.InvalidData(ErrorType.InvalidEmailFormat)
-        } else if (user.phoneNumber.isNullOrEmpty()) {
-            registrationResultMutableLiveData.value =
-                RegisterResult.InvalidData(ErrorType.EmptyPhoneNumber)
-        } else if (!user.phoneNumber.isValidPhoneNumberFormat()) {
-            registrationResultMutableLiveData.value =
-                RegisterResult.InvalidData(ErrorType.InvalidPhoneNumberFormat)
-        } else if (user.password.isNullOrEmpty()) {
+        } else if (user.password.isEmpty()) {
             registrationResultMutableLiveData.value =
                 RegisterResult.InvalidData(ErrorType.EmptyPassword)
         } else if (!user.password.isValidPasswordFormat()) {
             registrationResultMutableLiveData.value =
                 RegisterResult.InvalidData(ErrorType.InvalidPasswordFormat)
-        } else if (user.name.isNullOrEmpty()) {
+        } else if (user.phoneNumber.isEmpty()) {
             registrationResultMutableLiveData.value =
-                RegisterResult.InvalidData(ErrorType.EmptyName)
+                RegisterResult.InvalidData(ErrorType.EmptyPhoneNumber)
+        } else if (!user.phoneNumber.isValidPhoneNumberFormat()) {
+            registrationResultMutableLiveData.value =
+                RegisterResult.InvalidData(ErrorType.InvalidPhoneNumberFormat)
         } else {
             // all data is valid
             viewModelScope.launch(ioDispatcher) {
