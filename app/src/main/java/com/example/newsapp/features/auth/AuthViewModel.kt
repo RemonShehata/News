@@ -53,12 +53,12 @@ class AuthViewModel(
     }
 }
 
-@Suppress("UNCHECKED_CAST")
-class MyViewModelFactory(
-    private val userRepository: UserRepository,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AuthViewModel(userRepository, ioDispatcher) as T
-    }
-}
+//@Suppress("UNCHECKED_CAST")
+//class MyViewModelFactory(
+//    private val userRepository: UserRepository,
+//    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+//) : ViewModelProvider.Factory {
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        return AuthViewModel(userRepository, ioDispatcher) as T
+//    }
+//}
