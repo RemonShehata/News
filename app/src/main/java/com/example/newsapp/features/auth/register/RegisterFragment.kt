@@ -12,7 +12,6 @@ import com.example.newsapp.R
 import com.example.newsapp.data.entities.UserDto
 import com.example.newsapp.databinding.FragmentRegisterBinding
 import com.example.newsapp.di.NewsManager
-import com.example.newsapp.features.auth.MyViewModelFactory
 import com.example.newsapp.utils.getTrimmedText
 
 class RegisterFragment : Fragment() {
