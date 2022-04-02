@@ -55,6 +55,12 @@ jobs:
             paths: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
             token: ${{ secrets.GITHUB_TOKEN }}
 
+        - name: Generate JaCoCo Badge
+          uses: cicirello/jacoco-badge-generator@v2
+          with:
+             generate-branches-badge: true
+             jacoco-csv-file: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.csv
+
 
   static_code_anaylsis:
       runs-on: ubuntu-latest
