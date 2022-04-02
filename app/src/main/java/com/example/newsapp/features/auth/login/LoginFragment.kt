@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -43,9 +44,9 @@ class LoginFragment : Fragment() {
             when (result) {
                 is LoginResult.InvalidData -> {
                     when (result.error) {
-                        ErrorType.EmptyEmail -> TODO()
-                        ErrorType.EmptyPassword -> TODO()
-                        ErrorType.InvalidEmailFormat -> TODO()
+                        ErrorType.EmptyEmail ->  binding.userEmailET.error = "Email can't be empty"
+                        ErrorType.EmptyPassword -> binding.userPasswordET.error = "Password can't be empty"
+                        ErrorType.InvalidEmailFormat -> binding.userEmailET.error = "Invalid Email"
                     }
                 }
                 LoginResult.Success -> {
@@ -53,7 +54,7 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.newsActivity)
                 }
                 LoginResult.WrongCredentials -> {
-                    TODO()
+                    Toast.makeText(requireContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show()
                 }
             }
         }
