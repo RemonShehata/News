@@ -2,6 +2,8 @@ package com.example.newsapp.utils
 
 import com.example.newsapp.data.entities.ArticleEntity
 import com.example.newsapp.data.entities.NewsEntity
+import com.example.newsapp.data.entities.User
+import com.example.newsapp.data.entities.UserDto
 import com.example.newsapp.data.network.Article
 import com.example.newsapp.data.network.News
 import com.example.newsapp.data.network.Source
@@ -42,5 +44,14 @@ fun ArticleEntity.convertToArticle(): Article {
         this.urlToImage,
         this.publishedAt,
         this.content
+    )
+}
+
+fun UserDto.toEntity(): User {
+    return User(
+        email = email,
+        name = name,
+        password = password,
+        phoneNumber = phoneNumber
     )
 }
