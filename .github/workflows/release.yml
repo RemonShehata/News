@@ -33,6 +33,13 @@ jobs:
           distribution: 'temurin'
       - name: Build Project
         run: ./gradlew assemble
+
+      - name: Create Firebase Service Credentials file
+        run: |
+            echo "$FIREBASE_CREDENTIALS" > firebase_credentials.json.b64
+            base64 -d -i firebase_credentials.json.b64 > firebase_credentials.json
+            env:
+              FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: upload to firebase distribution
         run: ./gradlew appDistributionUploadDebug
 
