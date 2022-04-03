@@ -11,13 +11,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentLoginBinding
 import com.example.newsapp.di.NewsManager
-import com.example.newsapp.features.auth.AuthViewModel
-import com.example.newsapp.features.auth.MyViewModelFactory
+import com.example.newsapp.utils.getTrimmedText
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
-    private val viewModel: AuthViewModel by viewModels {
+    private val viewModel: LoginViewModel by viewModels {
         MyViewModelFactory(NewsManager.userRepo)
     }
 
@@ -26,30 +25,37 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(layoutInflater)
+        binding = FragmentLoginBinding.inflate(layoutInflater).apply {
+            loginBtn.setOnClickListener {
+                doLogin()
+            }
+
+            registerBtn.setOnClickListener {
+                doRegister()
+            }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginBtn.setOnClickListener {
-            doLogin()
-        }
 
-        binding.registerBtn.setOnClickListener {
-            doRegister()
-        }
-
-        viewModel.loginResultLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                requireActivity().finish()
-                findNavController().navigate(R.id.newsActivity)
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please enter valid email and password",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewModel.loginResultLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is LoginResult.InvalidData -> {
+                    when (result.error) {
+                        ErrorType.EmptyEmail ->  binding.userEmailET.error = "Email can't be empty"
+                        ErrorType.EmptyPassword -> binding.userPasswordET.error = "Password can't be empty"
+                        ErrorType.InvalidEmailFormat -> binding.userEmailET.error = "Invalid Email"
+                    }
+                }
+                LoginResult.Success -> {
+                    requireActivity().finish()
+                    findNavController().navigate(R.id.newsActivity)
+                }
+                LoginResult.WrongCredentials -> {
+                    Toast.makeText(requireContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -59,13 +65,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun doLogin() {
-        val email = binding.userEmailET.text.toString().trim()
-        val password = binding.userPasswordET.text.toString().trim()
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(requireContext(), "please fill all the fields!", Toast.LENGTH_SHORT)
-                .show()
-        } else {
-            viewModel.login(email, password)
-        }
+        val email = binding.userEmailET.getTrimmedText()
+        val password = binding.userPasswordET.getTrimmedText()
+        viewModel.login(email, password)
     }
 }

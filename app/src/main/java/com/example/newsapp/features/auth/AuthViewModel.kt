@@ -4,7 +4,7 @@ package com.example.newsapp.features.auth
 
 import android.util.Patterns
 import androidx.lifecycle.*
-import com.example.newsapp.data.entities.User
+import com.example.newsapp.data.entities.UserEntity
 import com.example.newsapp.data.repos.UserRepository
 import com.example.newsapp.utils.PHONE_REGEX
 import kotlinx.coroutines.CoroutineDispatcher
@@ -31,8 +31,8 @@ class AuthViewModel(
         loginResultMutableLiveData.postValue(userRepository.login(email, password))
     }
 
-    fun register(user: User) = viewModelScope.launch(ioDispatcher) {
-        registrationResultMutableLiveData.postValue(userRepository.registerUser(user))
+    fun register(userEntity: UserEntity) = viewModelScope.launch(ioDispatcher) {
+        registrationResultMutableLiveData.postValue(userRepository.registerUser(userEntity))
     }
 
     fun changePassword(email: String, password: String) = viewModelScope.launch(ioDispatcher) {
@@ -53,12 +53,12 @@ class AuthViewModel(
     }
 }
 
-@Suppress("UNCHECKED_CAST")
-class MyViewModelFactory(
-    private val userRepository: UserRepository,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AuthViewModel(userRepository, ioDispatcher) as T
-    }
-}
+//@Suppress("UNCHECKED_CAST")
+//class MyViewModelFactory(
+//    private val userRepository: UserRepository,
+//    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+//) : ViewModelProvider.Factory {
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        return AuthViewModel(userRepository, ioDispatcher) as T
+//    }
+//}

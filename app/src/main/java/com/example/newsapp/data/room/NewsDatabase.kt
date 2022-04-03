@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.newsapp.data.entities.NewsConverter
 import com.example.newsapp.data.entities.NewsEntity
-import com.example.newsapp.data.entities.User
+import com.example.newsapp.data.entities.UserEntity
 
 @Database(
-    entities = [User::class, NewsEntity::class],
+    entities = [UserEntity::class, NewsEntity::class],
     version = 1,
     exportSchema = false
 )
