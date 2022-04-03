@@ -2,7 +2,7 @@ package com.example.newsapp.utils
 
 import com.example.newsapp.data.entities.ArticleEntity
 import com.example.newsapp.data.entities.NewsEntity
-import com.example.newsapp.data.entities.User
+import com.example.newsapp.data.entities.UserEntity
 import com.example.newsapp.data.entities.UserDto
 import com.example.newsapp.data.network.Article
 import com.example.newsapp.data.network.News
@@ -47,8 +47,8 @@ fun ArticleEntity.convertToArticle(): Article {
     )
 }
 
-fun UserDto.toEntity(): User {
-    return User(
+fun UserDto.toEntity(): UserEntity {
+    return UserEntity(
         email = email,
         name = name,
         password = password,
