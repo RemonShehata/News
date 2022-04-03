@@ -17,8 +17,8 @@ class LoginViewModel(
     val loginResultLiveData: LiveData<LoginResult>
         get() = loginResultMutableLiveData
 
-    fun login(email: String?, password: String?) {
-        if (email.isNullOrEmpty()) {
+    fun login(email: String, password: String) {
+        if (email.isEmpty()) {
             loginResultMutableLiveData.value = LoginResult.InvalidData(ErrorType.EmptyEmail)
         } else if (!email.isValidEmailFormat()) {
             loginResultMutableLiveData.value = LoginResult.InvalidData(ErrorType.InvalidEmailFormat)
