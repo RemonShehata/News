@@ -26,8 +26,6 @@ jobs:
         env:
            API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: echo API_KEY="API_KEY" > ./local.properties
-      - name: Clean
-        run: ./gradlew clean
       - name: Build Project on Main
         run: ./gradlew assembleDebug
 
