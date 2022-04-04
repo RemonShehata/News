@@ -7,6 +7,7 @@ plugins {
     id 'com.google.firebase.appdistribution'
     id 'io.gitlab.arturbosch.detekt'
     id 'jacoco'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 apply from: '../jacoco.gradle'
 
