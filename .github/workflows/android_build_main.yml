@@ -23,7 +23,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Get API key
-        run: echo "API_KEY" > ./local.properties
+        run: |
+          pwd
+          echo "API_KEY" > /home/runner/work/News/News/local.properties
         env:
           API_KEY: ${{ secrets.NEWS_API_KEY }}
       - name: Build Project on Main
