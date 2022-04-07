@@ -3,7 +3,6 @@ package com.example.newsapp.data.network
 import com.example.newsapp.BuildConfig
 import com.example.newsapp.di.NewsManager
 import com.example.newsapp.utils.NEWS_API_BASE_URL
-import com.example.newsapp.utils.NEWS_API_KEY
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,12 +13,12 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface NewsApi {
-    @Headers("X-Api-Key: $NEWS_API_KEY") // replace with your own Key
+    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}") // replace with your own Key
     @GET("top-headlines?country=us")
     suspend fun getTopHeadlines(): News
 
     @Suppress("FunctionParameterNaming")
-    @Headers("X-Api-Key: $NEWS_API_KEY") // replace with your own Key
+    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}") // replace with your own Key
     @GET("top-headlines?country=us")
     suspend fun getEverything(@Query("q") Keywords: String): News
 
