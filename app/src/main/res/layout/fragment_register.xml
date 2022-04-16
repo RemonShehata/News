@@ -92,5 +92,16 @@
             app:layout_constraintStart_toStartOf="@id/userPhoneTxtInput"
             app:layout_constraintTop_toBottomOf="@id/userPhoneTxtInput" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Login"
+            app:layout_constraintEnd_toEndOf="@+id/registerBtn"
+            app:layout_constraintStart_toStartOf="@+id/registerBtn"
+            app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
