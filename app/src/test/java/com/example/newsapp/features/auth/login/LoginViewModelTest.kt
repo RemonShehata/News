@@ -31,6 +31,7 @@ class LoginViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         loginViewModel = LoginViewModel(userRepo)
+        // https://stackoverflow.com/questions/44382540/mocking-extension-function-in-kotlin
         mockkStatic("com.example.newsapp.utils.ExtentionsUtilKt")
     }
 
