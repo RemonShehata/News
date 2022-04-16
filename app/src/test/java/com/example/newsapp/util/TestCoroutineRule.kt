@@ -1,3 +1,5 @@
+@file: Suppress("NoWildcardImports")
+
 package com.example.newsapp.util
 
 import kotlinx.coroutines.Dispatchers
@@ -6,12 +8,7 @@ import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-/*
- * Copyright (c) 2020 Dexcom, Inc.
- * Licenses to third-party material that may be incorporated into this software are listed at www.dexcom.com/notices
- */
-
-//https://github.com/googlecodelabs/kotlin-coroutines/blob/c03cf4447ef4a615cf8f199b38b883b74028c5d9/coroutines-codelab/finished_code/src/test/java/com/example/android/kotlincoroutines/main/utils/MainCoroutineScopeRule.kt
+// https://github.com/googlecodelabs/kotlin-coroutines/blob/c03cf4447ef4a615cf8f199b38b883b74028c5d9/coroutines-codelab/finished_code/src/test/java/com/example/android/kotlincoroutines/main/utils/MainCoroutineScopeRule.kt
 
 /**
  * TestCoroutineRule installs a TestCoroutineDispatcher for Disptachers.Main.
