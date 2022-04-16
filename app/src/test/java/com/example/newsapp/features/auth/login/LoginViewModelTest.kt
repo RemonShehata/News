@@ -44,6 +44,7 @@ class LoginViewModelTest {
         unmockkAll()
     }
 
+    // region login tests
     @Test
     fun `given empty email and password, when login is called, EmptyEmail is returned`() {
         // GIVEN
@@ -129,4 +130,9 @@ class LoginViewModelTest {
             coVerify { userRepo.login(email, password) }
             assertIs<LoginResult.WrongCredentials>(result)
         }
+    // endregion
+
+    // region navigation tests
+
+    // endregion
 }
