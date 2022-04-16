@@ -50,6 +50,7 @@ class LoginViewModel(
     fun registerClicked(){
         loginNavigationMutableLiveData.value = SingleEvent(LoginNavigation.NavigateToRegister)
     }
+    // random change for tests
 }
 
 sealed class LoginResult {
