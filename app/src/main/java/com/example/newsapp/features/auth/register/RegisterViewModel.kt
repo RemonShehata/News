@@ -5,10 +5,7 @@ package com.example.newsapp.features.auth.register
 import androidx.lifecycle.*
 import com.example.newsapp.data.entities.UserDto
 import com.example.newsapp.data.repos.UserRepository
-import com.example.newsapp.utils.isValidEmailFormat
-import com.example.newsapp.utils.isValidPasswordFormat
-import com.example.newsapp.utils.isValidPhoneNumberFormat
-import com.example.newsapp.utils.toEntity
+import com.example.newsapp.utils.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +17,11 @@ class RegisterViewModel(
     private val registrationResultMutableLiveData = MutableLiveData<RegisterResult>()
     val registrationResultLiveData: LiveData<RegisterResult>
         get() = registrationResultMutableLiveData
+
+    private val registerNavigationMutableLiveData =
+        MutableLiveData<SingleEvent<RegisterNavigation>>()
+    val registerNavigationLiveData: LiveData<SingleEvent<RegisterNavigation>>
+        get() = registerNavigationMutableLiveData
 
     fun register(user: UserDto) {
         if (user.name.isEmpty()) {
@@ -57,6 +59,14 @@ class RegisterViewModel(
             }
         }
     }
+
+    fun successfulRegistration() {
+        registerNavigationMutableLiveData.value = SingleEvent(RegisterNavigation.NavigateToHome)
+    }
+
+    fun navigateToLogin() {
+        registerNavigationMutableLiveData.value = SingleEvent(RegisterNavigation.NavigateToLogin)
+    }
 }
 
 sealed class RegisterResult {
@@ -73,6 +83,11 @@ sealed class ErrorType {
     object EmptyPhoneNumber : ErrorType()
     object InvalidPhoneNumberFormat : ErrorType()
     object EmptyName : ErrorType()
+}
+
+sealed class RegisterNavigation {
+    object NavigateToHome : RegisterNavigation()
+    object NavigateToLogin : RegisterNavigation()
 }
 
 @Suppress("UNCHECKED_CAST")

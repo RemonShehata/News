@@ -27,9 +27,9 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater).apply {
-            registerBtn.setOnClickListener {
-                doRegister()
-            }
+            registerBtn.setOnClickListener { doRegister() }
+
+            loginBtn.setOnClickListener { navigateToLogin() }
         }
         return binding.root
     }
@@ -76,8 +76,21 @@ class RegisterFragment : Fragment() {
                     ).show()
                 }
                 RegisterResult.RegisterSuccessful -> {
-                    requireActivity().finish()
-                    findNavController().navigate(R.id.newsActivity)
+                    viewModel.successfulRegistration()
+                }
+            }
+        }
+
+        viewModel.registerNavigationLiveData.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { navigation ->
+                when (navigation) {
+
+                    RegisterNavigation.NavigateToHome -> {
+                        requireActivity().finish()
+                        findNavController().navigate(R.id.newsActivity)
+                    }
+
+                    RegisterNavigation.NavigateToLogin -> findNavController().navigate(R.id.loginFragment)
                 }
             }
         }
@@ -92,5 +105,9 @@ class RegisterFragment : Fragment() {
         val userDto =
             UserDto(email = email, name = userName, password = password, phoneNumber = phoneNumber)
         viewModel.register(userDto)
+    }
+
+    private fun navigateToLogin() {
+        viewModel.navigateToLogin()
     }
 }
