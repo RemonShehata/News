@@ -133,6 +133,20 @@ class LoginViewModelTest {
     // endregion
 
     // region navigation tests
+    @Test
+    fun `when loginSuccessful is called, NavigateToHome is emitted`() {
+        loginViewModel.loginSuccessful()
 
+        val result = loginViewModel.loginNavigationLiveData.getOrAwaitValue().peekContent()
+        assertIs<LoginNavigation.NavigateToHome>(result)
+    }
+
+    @Test
+    fun `when registerClicked is called, NavigateToRegister is emitted`() {
+        loginViewModel.registerClicked()
+
+        val result = loginViewModel.loginNavigationLiveData.getOrAwaitValue().peekContent()
+        assertIs<LoginNavigation.NavigateToRegister>(result)
+    }
     // endregion
 }
