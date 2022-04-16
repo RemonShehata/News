@@ -28,6 +28,8 @@ jobs:
           API_KEY: ${{ secrets.NEWS_API_KEY }}
       - name: Build Project on Main
         run: ./gradlew assembleDebug
+      - name: Delete API key file
+        run: rm ./local.properties
 
   unit_test_main:
     runs-on: ubuntu-latest
