@@ -4,6 +4,7 @@ package com.example.newsapp.features.auth.login
 
 import androidx.lifecycle.*
 import com.example.newsapp.data.repos.UserRepository
+import com.example.newsapp.utils.SingleEvent
 import com.example.newsapp.utils.isValidEmailFormat
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,10 @@ class LoginViewModel(
     private val loginResultMutableLiveData = MutableLiveData<LoginResult>()
     val loginResultLiveData: LiveData<LoginResult>
         get() = loginResultMutableLiveData
+
+    private val loginNavigationMutableLiveData = MutableLiveData<SingleEvent<LoginNavigation>>()
+    val loginNavigationLiveData: LiveData<SingleEvent<LoginNavigation>>
+        get() = loginNavigationMutableLiveData
 
     fun login(email: String, password: String) {
         if (email.isEmpty()) {
@@ -37,6 +42,14 @@ class LoginViewModel(
             }
         }
     }
+
+    fun loginSuccessful(){
+        loginNavigationMutableLiveData.value = SingleEvent(LoginNavigation.NavigateToHome)
+    }
+
+    fun registerClicked(){
+        loginNavigationMutableLiveData.value = SingleEvent(LoginNavigation.NavigateToRegister)
+    }
 }
 
 sealed class LoginResult {
@@ -49,6 +62,11 @@ sealed class ErrorType {
     object EmptyEmail : ErrorType()
     object InvalidEmailFormat : ErrorType()
     object EmptyPassword : ErrorType()
+}
+
+sealed class LoginNavigation {
+    object NavigateToRegister : LoginNavigation()
+    object NavigateToHome : LoginNavigation()
 }
 
 @Suppress("UNCHECKED_CAST")

@@ -44,24 +44,36 @@ class LoginFragment : Fragment() {
             when (result) {
                 is LoginResult.InvalidData -> {
                     when (result.error) {
-                        ErrorType.EmptyEmail ->  binding.userEmailET.error = "Email can't be empty"
-                        ErrorType.EmptyPassword -> binding.userPasswordET.error = "Password can't be empty"
-                        ErrorType.InvalidEmailFormat -> binding.userEmailET.error = "Invalid Email"
+                        ErrorType.EmptyEmail ->
+                            binding.userEmailET.error = "Email can't be empty"
+                        ErrorType.EmptyPassword ->
+                            binding.userPasswordET.error = "Password can't be empty"
+                        ErrorType.InvalidEmailFormat ->
+                            binding.userEmailET.error = "Invalid Email"
                     }
                 }
                 LoginResult.Success -> {
                     requireActivity().finish()
-                    findNavController().navigate(R.id.newsActivity)
+                    viewModel.loginSuccessful()
                 }
                 LoginResult.WrongCredentials -> {
                     Toast.makeText(requireContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+        viewModel.loginNavigationLiveData.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { navigation ->
+                when (navigation) {
+                    LoginNavigation.NavigateToHome -> findNavController().navigate(R.id.newsActivity)
+                    LoginNavigation.NavigateToRegister -> findNavController().navigate(R.id.registerFragment)
+                }
+            }
+        }
     }
 
     private fun doRegister() {
-        findNavController().navigate(R.id.registerFragment)
+        viewModel.registerClicked()
     }
 
     private fun doLogin() {

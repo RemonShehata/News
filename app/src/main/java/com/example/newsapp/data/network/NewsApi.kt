@@ -13,12 +13,12 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface NewsApi {
-    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}") // replace with your own Key
+    @Headers("X-Api-Key: \${BuildConfig.NEWS_API_KEY}") // replace with your own Key
     @GET("top-headlines?country=us")
     suspend fun getTopHeadlines(): News
 
     @Suppress("FunctionParameterNaming")
-    @Headers("X-Api-Key: ${BuildConfig.NEWS_API_KEY}") // replace with your own Key
+    @Headers("X-Api-Key: \${BuildConfig.NEWS_API_KEY}") // replace with your own Key
     @GET("top-headlines?country=us")
     suspend fun getEverything(@Query("q") Keywords: String): News
 
