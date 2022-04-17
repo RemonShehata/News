@@ -4,14 +4,14 @@ package com.example.newsapp.features.auth.register
 
 import androidx.lifecycle.*
 import com.example.newsapp.data.entities.UserDto
-import com.example.newsapp.data.repos.UserRepository
+import com.example.newsapp.data.repos.UserRepo
 import com.example.newsapp.utils.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val userRepository: UserRepository,
+    private val userRepo: UserRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
     private val registrationResultMutableLiveData = MutableLiveData<RegisterResult>()
@@ -48,7 +48,7 @@ class RegisterViewModel(
         } else {
             // all data is valid
             viewModelScope.launch(ioDispatcher) {
-                when (userRepository.registerUser(user.toEntity())) {
+                when (userRepo.registerUser(user.toEntity())) {
                     true -> {
                         registrationResultMutableLiveData.postValue(RegisterResult.RegisterSuccessful)
                     }
@@ -92,10 +92,10 @@ sealed class RegisterNavigation {
 
 @Suppress("UNCHECKED_CAST")
 class MyViewModelFactory(
-    private val userRepository: UserRepository,
+    private val userRepo: UserRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return RegisterViewModel(userRepository, ioDispatcher) as T
+        return RegisterViewModel(userRepo, ioDispatcher) as T
     }
 }
