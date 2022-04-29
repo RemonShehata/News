@@ -12,7 +12,7 @@ interface UserDao {
      * According to this [link](https://commonsware.com/AndroidArch/pages/chap-roomconflict-001)
      * The conflict will happen when two entities have the same primary keys.
      */
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.ABORT) // should this be IGNORE so we can return -1 instead of exception?
     suspend fun insertUser(userEntity: UserEntity): Long
 
     @Query("SELECT EXISTS(SELECT * FROM user WHERE email = :email AND password = :password)")
