@@ -1,3 +1,5 @@
+@file: Suppress("NoWildcardImports")
+
 package com.example.newsapp.features.auth.register
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
