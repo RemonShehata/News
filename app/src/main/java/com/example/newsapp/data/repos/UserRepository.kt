@@ -9,8 +9,8 @@ class UserRepository(private val userDao: UserDao) : UserRepo {
     @Suppress("SwallowedException")
     override suspend fun registerUser(userEntity: UserEntity): Boolean {
         return try {
-            userDao.insertUser(userEntity)
-            true
+            val result = userDao.insertUser(userEntity)
+            result > 0
         } catch (exception: SQLiteConstraintException) {
             false
         }
