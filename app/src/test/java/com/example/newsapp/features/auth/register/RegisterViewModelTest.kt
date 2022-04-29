@@ -6,12 +6,11 @@ import com.example.newsapp.data.repos.UserRepo
 import com.example.newsapp.util.TestCoroutineRule
 import com.example.newsapp.util.getOrAwaitValue
 import com.example.newsapp.utils.isValidEmailFormat
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import com.example.newsapp.utils.toEntity
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockkStatic
-import io.mockk.unmockkAll
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -150,6 +149,40 @@ class RegisterViewModelTest {
         assertIs<RegisterResult.InvalidData>(result)
         assertIs<ErrorType.InvalidPhoneNumberFormat>(result.error)
     }
+
+    @Test
+    fun `given valid user data and registeration is successful, when register is called, is InvalidData InvalidPhoneNumberFormat returned`() =
+        runTest {
+            // GIVEN
+            val userDto = createUserDto()
+            every { any<String>().isValidEmailFormat() } returns true
+            coEvery { userRepo.registerUser(any()) } returns true
+
+            // WHEN
+            registerViewModel.register(userDto)
+
+            // THEN
+            coVerify { userRepo.registerUser(userDto.toEntity()) }
+            val result = registerViewModel.registrationResultLiveData.getOrAwaitValue()
+            assertIs<RegisterResult.RegisterSuccessful>(result)
+        }
+
+    @Test
+    fun `given valid user data and registration failed when register is called is InvalidData InvalidPhoneNumberFormat returned`() =
+        runTest {
+            // GIVEN
+            val userDto = createUserDto()
+            every { any<String>().isValidEmailFormat() } returns true
+            coEvery { userRepo.registerUser(any()) } returns false
+
+            // WHEN
+            registerViewModel.register(userDto)
+
+            // THEN
+            coVerify { userRepo.registerUser(userDto.toEntity()) }
+            val result = registerViewModel.registrationResultLiveData.getOrAwaitValue()
+            assertIs<RegisterResult.RegisterError>(result)
+        }
 
     private fun createUserDto(
         email: String = "test@test.com",
