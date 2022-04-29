@@ -1,3 +1,5 @@
+@file: Suppress("NoWildcardImports")
+
 package com.example.newsapp.features.auth.register
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -44,6 +46,7 @@ class RegisterViewModelTest {
         unmockkAll()
     }
 
+    //region register tests
     @Test
     fun `given empty name, when register is called, InvalidData EmptyName is returned`() {
         // GIVEN
@@ -88,7 +91,6 @@ class RegisterViewModelTest {
         assertIs<RegisterResult.InvalidData>(result)
         assertIs<ErrorType.InvalidEmailFormat>(result.error)
     }
-
 
     @Test
     fun `given empty password, when register is called, is InvalidData EmptyPassword returned`() {
@@ -151,7 +153,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `given valid user data and registeration is successful, when register is called, is InvalidData InvalidPhoneNumberFormat returned`() =
+    fun `given successful register, when register is called, is InvalidData InvalidPhoneNumberFormat returned`() =
         runTest {
             // GIVEN
             val userDto = createUserDto()
@@ -168,7 +170,7 @@ class RegisterViewModelTest {
         }
 
     @Test
-    fun `given valid user data and registration failed when register is called is InvalidData InvalidPhoneNumberFormat returned`() =
+    fun `given failed register, when register is called is InvalidData InvalidPhoneNumberFormat returned`() =
         runTest {
             // GIVEN
             val userDto = createUserDto()
@@ -183,6 +185,29 @@ class RegisterViewModelTest {
             val result = registerViewModel.registrationResultLiveData.getOrAwaitValue()
             assertIs<RegisterResult.RegisterError>(result)
         }
+    //endregion
+
+    //region navigation tests
+    @Test
+    fun `when successfulRegistration is called, NavigateToHome is emitted`() {
+        with(registerViewModel) {
+            successfulRegistration()
+            val result = registerNavigationLiveData.getOrAwaitValue().getContentIfNotHandled()
+
+            assertIs<RegisterNavigation.NavigateToHome>(result)
+        }
+    }
+
+    @Test
+    fun `when navigateToLogin is called, NavigateToLogin is emitted`() {
+        with(registerViewModel) {
+            successfulRegistration()
+            val result = registerNavigationLiveData.getOrAwaitValue().getContentIfNotHandled()
+
+            assertIs<RegisterNavigation.NavigateToHome>(result)
+        }
+    }
+    //endregion
 
     private fun createUserDto(
         email: String = "test@test.com",
