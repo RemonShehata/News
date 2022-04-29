@@ -3,7 +3,7 @@
 package com.example.newsapp.features.auth.login
 
 import androidx.lifecycle.*
-import com.example.newsapp.data.repos.UserRepository
+import com.example.newsapp.data.repos.UserRepo
 import com.example.newsapp.utils.SingleEvent
 import com.example.newsapp.utils.isValidEmailFormat
 import kotlinx.coroutines.CoroutineDispatcher
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val userRepository: UserRepository,
+    private val userRepo: UserRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
     private val loginResultMutableLiveData = MutableLiveData<LoginResult>()
@@ -31,7 +31,7 @@ class LoginViewModel(
             loginResultMutableLiveData.value = LoginResult.InvalidData(ErrorType.EmptyPassword)
         } else {
             viewModelScope.launch(ioDispatcher) {
-                when (userRepository.login(email, password)) {
+                when (userRepo.login(email, password)) {
                     true -> {
                         loginResultMutableLiveData.postValue(LoginResult.Success)
                     }
@@ -71,10 +71,10 @@ sealed class LoginNavigation {
 
 @Suppress("UNCHECKED_CAST")
 class MyViewModelFactory(
-    private val userRepository: UserRepository,
+    private val userRepo: UserRepo,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return LoginViewModel(userRepository, ioDispatcher) as T
+        return LoginViewModel(userRepo, ioDispatcher) as T
     }
 }

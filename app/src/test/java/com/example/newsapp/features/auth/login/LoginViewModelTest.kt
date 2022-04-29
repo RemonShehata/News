@@ -3,7 +3,7 @@
 package com.example.newsapp.features.auth.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.newsapp.data.repos.UserRepository
+import com.example.newsapp.data.repos.UserRepo
 import com.example.newsapp.util.TestCoroutineRule
 import com.example.newsapp.util.getOrAwaitValue
 import com.example.newsapp.utils.isValidEmailFormat
@@ -29,7 +29,7 @@ class LoginViewModelTest {
     private lateinit var loginViewModel: LoginViewModel
 
     @MockK
-    private lateinit var userRepo: UserRepository
+    private lateinit var userRepo: UserRepo
 
     @Before
     fun setUp() {

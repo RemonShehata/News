@@ -1,12 +1,26 @@
 package com.example.newsapp.data.repos
 
+import android.database.sqlite.SQLiteConstraintException
 import com.example.newsapp.data.entities.UserEntity
+import com.example.newsapp.data.room.UserDao
 
-interface UserRepository {
+class UserRepository(private val userDao: UserDao) : UserRepo {
 
-    suspend fun registerUser(userEntity: UserEntity): Boolean
+    @Suppress("SwallowedException")
+    override suspend fun registerUser(userEntity: UserEntity): Boolean {
+        return try {
+            userDao.insertUser(userEntity)
+            true
+        } catch (exception: SQLiteConstraintException) {
+            false
+        }
+    }
 
-    suspend fun login(email: String, password: String): Boolean
+    override suspend fun login(email: String, password: String): Boolean {
+        return userDao.login(email, password)
+    }
 
-    suspend fun changePassword(email: String, password: String): Boolean
+    override suspend fun changePassword(email: String, password: String): Boolean {
+        return userDao.updatePassword(email, password) > 0
+    }
 }

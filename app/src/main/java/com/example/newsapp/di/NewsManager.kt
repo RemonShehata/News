@@ -4,8 +4,8 @@ import android.content.Context
 import com.example.newsapp.data.network.NewsApi
 import com.example.newsapp.data.repos.NewsRepo
 import com.example.newsapp.data.repos.NewsRepository
+import com.example.newsapp.data.repos.UserRepo
 import com.example.newsapp.data.repos.UserRepository
-import com.example.newsapp.data.repos.UserRepositoryImp
 import com.example.newsapp.data.room.NewsDao
 import com.example.newsapp.data.room.NewsDatabase
 import com.example.newsapp.data.room.NewsDatabaseFactory
@@ -18,7 +18,7 @@ object NewsManager {
     lateinit var moshi: Moshi
     private lateinit var database: NewsDatabase
     private lateinit var userDao: UserDao
-    lateinit var userRepo: UserRepository
+    lateinit var userRepo: UserRepo
     private lateinit var newsDao: NewsDao
     private lateinit var newsApi: NewsApi
     lateinit var newsRepo: NewsRepo
@@ -33,7 +33,7 @@ object NewsManager {
 
         database = NewsDatabaseFactory.buildNewsDatabaseProvider(context)
         userDao = database.userDao()
-        userRepo = UserRepositoryImp(userDao)
+        userRepo = UserRepository(userDao)
         newsDao = database.newsDao()
         newsApi = NewsApi.create()
         newsRepo = NewsRepository(newsApi, newsDao)
